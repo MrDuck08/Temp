@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,14 +30,21 @@ public class GameManager : MonoBehaviour
     }
 
     public void CheckIfWin()
-    {
+    { 
 
         if(numberOfBugs == howManyBuggsToWin)
         {
 
-            Debug.Log("WIN");
+            ChangeScene(2);
 
         }
 
+    }
+    
+    public void ChangeScene(int whatScene)
+    {
+        
+        SceneManager.LoadScene(whatScene);
+        
     }
 }

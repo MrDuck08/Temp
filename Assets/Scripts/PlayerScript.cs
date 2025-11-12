@@ -98,6 +98,13 @@ public class PlayerScript : MonoBehaviour
             Destroy(collision.gameObject);
 
         }
+        
+        if(collision.tag == "Door")
+        {
+
+            gameManager.CheckIfWin();
+
+        }
 
     }
 }
