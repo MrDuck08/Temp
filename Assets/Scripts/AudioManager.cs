@@ -5,6 +5,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource hoverSound;
     [SerializeField] AudioSource talkingSound;
     [SerializeField] AudioSource collectBugSound;
+    [SerializeField] private AudioFade mainMusic;
+    [SerializeField] private AudioFade newMusic;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,7 +37,18 @@ public class AudioManager : MonoBehaviour
     public void CollectBugSound()
     {
         
-        
         collectBugSound.Play();
+        
+    }
+
+    public void NewMusic()
+    {
+
+        mainMusic.StartFadeOut();
+
+        newMusic.gameObject.GetComponent<AudioSource>().volume = 0;
+        newMusic.gameObject.GetComponent<AudioSource>().Play();
+        newMusic.StartFadeIn();
+        
     }
 }

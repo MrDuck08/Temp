@@ -105,6 +105,11 @@ public class DialogueScript : MonoBehaviour
             
         }
 
+        if (onWhatDialogueBundle == 1)
+        {
+            audioManager.NewMusic();
+        }
+
         dialogueInBundle[onWhatDialogue].SetActive(true); // Start Dialogue
         WhatTextToWrite(dialogueInBundle[onWhatDialogue].GetComponentInChildren<TextMeshProUGUI>());
 
