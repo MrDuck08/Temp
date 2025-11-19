@@ -19,6 +19,7 @@ public class PlayerScript : MonoBehaviour
 
     GameManager gameManager;
     DialogueScript dialogueScript;
+    AudioManager audioManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +29,7 @@ public class PlayerScript : MonoBehaviour
 
         gameManager = FindObjectOfType<GameManager>();
         dialogueScript = FindObjectOfType<DialogueScript>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -104,6 +106,7 @@ public class PlayerScript : MonoBehaviour
         {
             gameManager = FindObjectOfType<GameManager>();
             gameManager.AddBuggs(1);
+            audioManager.CollectBugSound();
             Destroy(collision.gameObject);
 
         }
@@ -111,7 +114,14 @@ public class PlayerScript : MonoBehaviour
         if(collision.tag == "Door")
         {
 
-            gameManager.CheckIfWin();
+            gameManager.CheckIfWin(true);
+
+        }
+        
+        if(collision.tag == "BugEnjoyerDoor")
+        {
+
+            gameManager.CheckIfWin(false);
 
         }
 

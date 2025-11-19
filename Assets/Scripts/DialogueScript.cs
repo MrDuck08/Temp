@@ -26,6 +26,7 @@ public class DialogueScript : MonoBehaviour
     #endregion
 
     PlayerScript playerScript;
+    AudioManager audioManager;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,6 +36,7 @@ public class DialogueScript : MonoBehaviour
         onWhatDialogueBundle = 0;
 
         playerScript = FindObjectOfType<PlayerScript>();
+        audioManager = FindObjectOfType<AudioManager>();
 
     }
 
@@ -49,7 +51,7 @@ public class DialogueScript : MonoBehaviour
 
             if (timer <= 0)
             {
-
+                audioManager.TalkingSound();
                 timer += timePerCharacter;
                 characterIndex++;
                 text.text = textToWrite.Substring(0, characterIndex);
@@ -96,6 +98,13 @@ public class DialogueScript : MonoBehaviour
 
         onWhatDialogueBundle++;
 
+        if (onWhatDialogueBundle == 2)
+        {
+
+            Destroy(GameObject.Find("tilemap 1_52").gameObject);
+            
+        }
+
         dialogueInBundle[onWhatDialogue].SetActive(true); // Start Dialogue
         WhatTextToWrite(dialogueInBundle[onWhatDialogue].GetComponentInChildren<TextMeshProUGUI>());
 
@@ -112,6 +121,7 @@ public class DialogueScript : MonoBehaviour
         {
             playerScript.DoNothingTOF(false);
             inDialogue = false;
+            writeText = false;
             return;
 
         }
@@ -125,7 +135,7 @@ public class DialogueScript : MonoBehaviour
     void WhatTextToWrite(TextMeshProUGUI textToChange)
     {
 
-        // Resetar Texten till när den ska skriva ny text + Lägger in vilken text
+        // Resetar Texten till nï¿½r den ska skriva ny text + Lï¿½gger in vilken text
 
         text = textToChange;
         textToWrite = textToChange.text;

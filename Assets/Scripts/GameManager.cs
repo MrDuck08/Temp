@@ -100,13 +100,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CheckIfWin()
+    public void CheckIfWin(bool walkedInDoor)
     { 
 
         if(numberOfBugs == howManyBuggsToWin)
         {
-
-            ChangeScene(2);
+            if (walkedInDoor)
+            {
+                ChangeScene(2);   
+            }
+            else
+            {
+                ChangeScene(4);
+            }
 
         }
 
