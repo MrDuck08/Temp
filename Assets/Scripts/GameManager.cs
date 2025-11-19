@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     AudioSource[] audioSourceObjList;
 
     [SerializeField] Slider volumeSlider;
+
+    DialogueScript dialogueScript;
     
     private void Awake()
     {
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
             audioSourceObjList2[i].volume = volume;
 
         }
-        Debug.Log(GameObject.Find("BugText").gameObject.name);
+
         bugAmountText = GameObject.Find("BugText");
         
         AddBuggs(0);
@@ -63,9 +65,11 @@ public class GameManager : MonoBehaviour
 
     public void StartFake()
     {
-        Debug.Log(GameObject.Find("BugText").gameObject.name + " 2");
+
         bugAmountText = GameObject.Find("BugText");
-        
+
+        AddBuggs(0);
+
         audioSourceObjList2.Clear();
         
         audioSourceObjList = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
@@ -84,8 +88,16 @@ public class GameManager : MonoBehaviour
     {
         numberOfBugs += buggs;
         
-        Debug.Log("s");
         bugAmountText.GetComponent<TextMeshProUGUI>().text = numberOfBugs.ToString(); 
+
+        if(numberOfBugs == 3)
+        {
+
+            dialogueScript = FindObjectOfType<DialogueScript>();
+
+            dialogueScript.StartDialogue();
+
+        }
     }
 
     public void CheckIfWin()

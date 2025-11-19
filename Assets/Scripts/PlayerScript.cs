@@ -8,6 +8,8 @@ public class PlayerScript : MonoBehaviour
 
     bool facingRight = true;
 
+    bool doNothing = false;
+
     bool grounded;
     [SerializeField] GameObject groundCheck;
     [SerializeField] LayerMask groundMask;
@@ -16,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     Animator myAnimator;
 
     GameManager gameManager;
+    DialogueScript dialogueScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,11 +27,17 @@ public class PlayerScript : MonoBehaviour
         myAnimator = GetComponent<Animator>();
 
         gameManager = FindObjectOfType<GameManager>();
+        dialogueScript = FindObjectOfType<DialogueScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (doNothing)
+        {
+            return;
+        }
+
         xInput = Input.GetAxisRaw("Horizontal");
 
 
@@ -93,7 +102,7 @@ public class PlayerScript : MonoBehaviour
         
         if(collision.tag == "Bugg")
         {
-
+            gameManager = FindObjectOfType<GameManager>();
             gameManager.AddBuggs(1);
             Destroy(collision.gameObject);
 
@@ -106,5 +115,21 @@ public class PlayerScript : MonoBehaviour
 
         }
 
+        if(collision.tag == "Dialogue")
+        {
+
+            dialogueScript.StartDialogue();
+            Destroy(collision.gameObject);
+
+        }
+
     }
+
+    public void DoNothingTOF(bool doNothingOrNo)
+    {
+
+        doNothing = doNothingOrNo;
+
+    }
+
 }
