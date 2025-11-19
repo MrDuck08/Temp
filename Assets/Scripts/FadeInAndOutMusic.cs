@@ -5,12 +5,17 @@ using UnityEngine;
 public class AudioFade : MonoBehaviour
 {
     private AudioSource source;
+    GameManager gameManager;
     public float fadeInTargetVolume;
     public float fadeOutTargetVolume;
     public float fadeSpeed;
     private void Start()
     {
         source = GetComponent<AudioSource>();
+        
+        gameManager = FindObjectOfType<GameManager>();
+
+        fadeInTargetVolume = gameManager.volume;
     }
     public void StartFadeIn()
     {
